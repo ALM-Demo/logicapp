@@ -1,0 +1,53 @@
+jobs:
+  create-logicapp-infra:
+    env:
+      AZURE_LOGICAPP_PACKAGE_PATH: .
+      DEF_NAME: testdeploy.json
+      DEPLOY_ENV: ${{ matrix.azureenv }}
+      DOTNET_VERSION: 3.1.301
+      LOCATION: eastus2
+      LOGIC_APPNAME: testLogicApp
+      RG_CON: GHConnections
+      RG_LA: GHApp
+      RG_NAME: rg-by-workflow-shared-dev-eus2-01
+      WORKFLOWCMD: create
+    environment: sandbox
+    name: Create logicapp infra
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set the env variables according to env
+      run: 'echo ${{matrix.azureenv}}
+
+        echo $DEPLOY_ENV
+
+        '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create Logic App
+      run: 'echo "path is ${{ github.workspace }}"
+
+        az extension add --name logic
+
+        az config set extension.use_dynamic_install=yes_without_prompt
+
+        az logic workflow ${{ env.WORKFLOWCMD }} --name "${{ env.LOGIC_APPNAME }}"
+        \
+
+        --resource-group "${{ env.RG_NAME }}" \
+
+        --location "${{ env.LOCATION }}" \
+
+        --definition "${{ env.DEF_NAME }}"'
+    strategy:
+      matrix:
+        azureenv:
+        - sandbox
+name: Create azure infra for logic apps
+'on':
+  push:
+    paths:
+    - .github/workflows/logicapp_workflow.yaml
+    - '*.json'
