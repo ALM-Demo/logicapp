@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "ad1e9f34-2525-4721-8777-445d89a891c7"
+        },
+        "name": {
+            "value": "ALM-Demo"
+        },
+        "location": {
+            "value": "East US 2"
+        },
+        "hostingPlanName": {
+            "value": "ASP-rgbyworkflowshareddeveus201-83d1"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-by-workflow-shared-dev-eus2-01"
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "storageAccountName": {
+            "value": "storageaccountrgbywaec8"
+        },
+        "sku": {
+            "value": "Standard"
+        },
+        "skuCode": {
+            "value": "S1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": true
+        }
+    }
+}
