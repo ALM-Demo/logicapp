@@ -33,14 +33,26 @@ jobs:
 
         az config set extension.use_dynamic_install=yes_without_prompt
 
-        az logic workflow ${{ env.WORKFLOWCMD }} --name "${{ env.LOGIC_APPNAME }}"
+        #az deploy workflow ${{ env.WORKFLOWCMD }} --name "${{ env.LOGIC_APPNAME }}"
         \
+
+        #--resource-group "${{ env.RG_NAME }}" \
+
+        #--location "${{ env.LOCATION }}" \
+
+        #--definition "${{ env.DEF_NAME }}"
+
+        templateFile="{provide-the-path-to-the-template-file}"
+
+        az deployment group create \
+
+        --name logicappdemo \
 
         --resource-group "${{ env.RG_NAME }}" \
 
-        --location "${{ env.LOCATION }}" \
+        --template-file template.json
 
-        --definition "${{ env.DEF_NAME }}"'
+        --parameters parameters.json \'
     strategy:
       matrix:
         azureenv:
