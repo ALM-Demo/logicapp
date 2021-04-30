@@ -42,7 +42,7 @@ jobs:
 
         #--definition "${{ env.DEF_NAME }}"
 
-        templateFile="{provide-the-path-to-the-template-file}"
+        #templateFile="{provide-the-path-to-the-template-file}"
 
         az deployment group create \
 
@@ -50,9 +50,9 @@ jobs:
 
         --resource-group "${{ env.RG_NAME }}" \
 
-        --template-file template.json
+        --template-file template.json \
 
-        --parameters parameters.json \'
+        --parameters parameters.json '
     strategy:
       matrix:
         azureenv:
