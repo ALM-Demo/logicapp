@@ -2,12 +2,13 @@ jobs:
   create-logicapp-infra:
     env:
       AZURE_LOGICAPP_PACKAGE_PATH: .
-      DEF_NAME: testdeploy.json
+      AZURE_SUBSCRIPTION: ad1e9f34-2525-4721-8777-445d89a891c7
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
       LOCATION: eastus2
+      PARAMETERFILE_NAME: parameters.json
       RG_NAME: rg-by-workflow-shared-dev-eus2-01
-      WORKFLOWCMD: create
+      TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
     runs-on: ubuntu-latest
@@ -23,10 +24,25 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Create Logic App
-      run: "az extension add --name logic\naz config set extension.use_dynamic_install=yes_without_prompt\n\
-        az deployment group create \\\n\n--resource-group \"${{ env.RG_NAME }}\" \\\
-        \n--template-file template.json \\\n--parameters parameters.json \n"
+    - name: Run ARM deploy
+      parameters: ${{ env.PARAMETERFILE_NAME }}
+      resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
+        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\xE2\
+        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
+        \xE2\u20AC\u2039 env.AZURE_RG }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
+        \xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039}\xE2\u20AC\
+        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
+        \u20AC\u2039\xE2\u20AC\u2039"
+      subscriptionId: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
+        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\xE2\
+        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
+        \xE2\u20AC\u2039 env.AZURE_SUBSCRIPTION }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
+        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
+        }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
+        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039"
+      template: ${{ env.TEMPLATE_NAME }}
+      uses: azure/arm-deploy@v1
+      with: null
     strategy:
       matrix:
         azureenv:
