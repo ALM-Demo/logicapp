@@ -5,10 +5,11 @@ jobs:
       AZURE_SUBSCRIPTION: ad1e9f34-2525-4721-8777-445d89a891c7
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-      DPLOYMENT_NAME: TestlogicApp1
+      DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
-      RG_NAME: rg-by-workflow-shared-dev-eus2-01
+      RG_NAME: $(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME= | head -n 1 |
+        grep -o '".*"' | sed 's/"//g')
       TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
@@ -16,7 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
-      run: 'echo ${{matrix.azureenv}}
+      run: 'echo ${{matrix.RG_NAME}}
+
+        echo ${{matrix.azureenv}}
 
         echo $DEPLOY_ENV
 
