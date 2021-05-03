@@ -28,10 +28,10 @@ jobs:
     - id: deploy
       uses: azure/arm-deploy@v1
       with:
-        deploymentName: TestlogicApp1
-        parameters: parameters.json
+        deploymentName: ${{ env.DPLOYMENT_NAME }}
+        parameters: ${{ env.PARAMETERFILE_NAME }}
         resourceGroupName: ${{ env.RG_NAME }}
-        template: template.json
+        template: ${{ env.TEMPLATE_NAME }}
     strategy:
       matrix:
         azureenv:
