@@ -8,7 +8,7 @@ jobs:
       DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
-      RG_NAME: ''
+      RG_NAME: $RG_NAME
       TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
