@@ -16,7 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
-      run: 'echo "::set-env name=RG_NAME::$(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME=
+      run: 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true
+
+        echo "::set-env name=RG_NAME::$(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME=
         | head -n 1 | grep -o ''".*"'' | sed ''s/"//g'')"
 
         echo ${{matrix.RG_NAME}}
