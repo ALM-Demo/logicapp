@@ -8,8 +8,7 @@ jobs:
       DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
-      RG_NAME: $(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME= | head -n 1 |
-        grep -o '".*"' | sed 's/"//g')
+      RG_NAME: ''
       TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
@@ -17,7 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
-      run: 'echo ${{matrix.RG_NAME}}
+      run: 'echo "::set-env name=RG_NAME::$(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME=
+        | head -n 1 | grep -o ''".*"'' | sed ''s/"//g'')
+
+        echo ${{matrix.RG_NAME}}
 
         echo ${{matrix.azureenv}}
 
