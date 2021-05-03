@@ -5,6 +5,7 @@ jobs:
       AZURE_SUBSCRIPTION: ad1e9f34-2525-4721-8777-445d89a891c7
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
+      DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
       RG_NAME: rg-by-workflow-shared-dev-eus2-01
@@ -24,25 +25,18 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Run ARM deploy
-      parameters: ${{ env.PARAMETERFILE_NAME }}
-      resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
-        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\xE2\
-        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
-        \xE2\u20AC\u2039 env.AZURE_RG }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
-        \xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039}\xE2\u20AC\
-        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
-        \u20AC\u2039\xE2\u20AC\u2039"
-      subscriptionId: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
-        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\xE2\
-        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
-        \xE2\u20AC\u2039 env.AZURE_SUBSCRIPTION }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
-        \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
-        }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
-        \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039"
-      template: ${{ env.TEMPLATE_NAME }}
-      uses: azure/arm-deploy@v1
-      with: null
+    - uses: whiteducksoftware/azure-arm-action@v3.2
+      with:
+        deploymentName: ${{ env.DPLOYMENT_NAME }}
+        parameters: ${{ env.PARAMETERFILE_NAME }}
+        resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
+          \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\
+          \xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
+          \u2039\xE2\u20AC\u2039 env.AZURE_RG }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
+          \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
+          }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
+          \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039"
+        templateLocation: ${{ env.TEMPLATE_NAME }}
     strategy:
       matrix:
         azureenv:
