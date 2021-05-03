@@ -27,6 +27,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: whiteducksoftware/azure-arm-action@v3.2
       with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         deploymentName: ${{ env.DPLOYMENT_NAME }}
         parameters: ${{ env.PARAMETERFILE_NAME }}
         resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
