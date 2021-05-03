@@ -25,11 +25,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: whiteducksoftware/azure-arm-action@v3.2
+    - id: deploy
+      uses: azure/arm-deploy@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
         deploymentName: ${{ env.DPLOYMENT_NAME }}
-        parameters: parameters.json
+        parameters: ${{ env.PARAMETERFILE_NAME }}
         resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
           \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\
           \xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
@@ -37,7 +37,7 @@ jobs:
           \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
           }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
           \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039"
-        templateLocation: ${{ env.TEMPLATE_NAME }}
+        template: ${{ env.TEMPLATE_NAME }}
     strategy:
       matrix:
         azureenv:
