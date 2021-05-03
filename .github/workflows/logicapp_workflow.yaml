@@ -8,6 +8,8 @@ jobs:
       DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
+      RG_NAME: grep "^RESOUECE_GROUP_NAME="  .github/env/dev.env|awk -F"=" '{ print
+        $2 }'
       TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
