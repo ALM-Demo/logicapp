@@ -5,7 +5,7 @@ jobs:
       AZURE_SUBSCRIPTION: ad1e9f34-2525-4721-8777-445d89a891c7
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-      DPLOYMENT_NAME: TestlogicApp
+      DPLOYMENT_NAME: TestlogicApp1
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
       RG_NAME: rg-by-workflow-shared-dev-eus2-01
