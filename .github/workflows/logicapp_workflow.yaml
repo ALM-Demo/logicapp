@@ -30,7 +30,7 @@ jobs:
       with:
         deploymentName: TestlogicApp1
         parameters: parameters.json
-        resourceGroupName: rg-by-workflow-shared-dev-eus2-01
+        resourceGroupName: ${{ env.RG_NAME }}
         template: template.json
     strategy:
       matrix:
