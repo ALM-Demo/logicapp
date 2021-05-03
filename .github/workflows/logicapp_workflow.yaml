@@ -18,8 +18,10 @@ jobs:
     - name: Set the env variables according to env
       run: 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true
 
-        echo "::set-env name=RG_NAME::$(cat .github/env/dev.env| grep RESOUECE_GROUP_NAME=
-        | head -n 1 | grep -o ''".*"'' | sed ''s/"//g'')"
+        RG_NAME=`grep "^RESOUECE_GROUP_NAME="  .github/env/dev.env|awk -F"=" ''{ print
+        $2 }''`
+
+        echo $RG_NAME
 
         echo ${{matrix.RG_NAME}}
 
