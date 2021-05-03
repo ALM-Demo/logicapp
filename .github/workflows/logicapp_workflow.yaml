@@ -28,16 +28,10 @@ jobs:
     - id: deploy
       uses: azure/arm-deploy@v1
       with:
-        deploymentName: ${{ env.DPLOYMENT_NAME }}
-        parameters: ${{ env.PARAMETERFILE_NAME }}
-        resourceGroupName: "${\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
-          \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039{\xE2\u20AC\u2039\
-          \xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
-          \u2039\xE2\u20AC\u2039 env.AZURE_RG }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\
-          \u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\
-          }\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\u2039\xE2\u20AC\
-          \u2039\xE2\u20AC\u2039\xE2\u20AC\u2039"
-        template: ${{ env.TEMPLATE_NAME }}
+        deploymentName: TestlogicApp1
+        parameters: parameters.json
+        resourceGroupName: rg-by-workflow-shared-dev-eus2-01
+        template: template.json
     strategy:
       matrix:
         azureenv:
