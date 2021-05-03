@@ -6,9 +6,6 @@ jobs:
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
       LOCATION: eastus2
-      LOGIC_APPNAME: testLogicApp
-      RG_CON: GHConnections
-      RG_LA: GHApp
       RG_NAME: rg-by-workflow-shared-dev-eus2-01
       WORKFLOWCMD: create
     environment: sandbox
@@ -27,7 +24,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Create Logic App
-      run: "echo \"path is ${{ github.workspace }}\"\naz extension add --name logic\n\
+      run: "\necho \"path is ${{ github.workspace }}\"\naz extension add --name logic\n\
         az config set extension.use_dynamic_install=yes_without_prompt\naz deployment\
         \ group create \\\n--name logicappdemo \\\n--resource-group \"${{ env.RG_NAME\
         \ }}\" \\\n--template-file template.json \\\n--parameters parameters.json\
