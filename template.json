@@ -28,6 +28,7 @@
         },
         "sku": {
             "type": "string"
+            
         },
         "skuCode": {
             "type": "string"
