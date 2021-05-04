@@ -2,13 +2,11 @@ jobs:
   create-logicapp-infra:
     env:
       AZURE_LOGICAPP_PACKAGE_PATH: .
-      AZURE_SUBSCRIPTION: ad1e9f34-2525-4721-8777-445d89a891c7
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-      DPLOYMENT_NAME: TestlogicApp
+      DPLOYMENT_NAME: TestlogicApp1
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
-      TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
     runs-on: ubuntu-latest
@@ -17,7 +15,11 @@ jobs:
     - name: Set the env variables according to env
       run: "ACTIONS_ALLOW_UNSECURE_COMMANDS=true\nRG_NAME=`grep \"^RESOUECE_GROUP_NAME=\"\
         \  .github/env/dev.env|awk -F\"=\" '{ print $2 }'` \necho RG_NAME=$RG_NAME\
-        \ >> $GITHUB_ENV\necho ${{matrix.azureenv}}\necho $DEPLOY_ENV\n"
+        \ >> $GITHUB_ENV\nAZURE_SUBSCRIPTION=`grep \"^SUBSCRIPTION_ID=\"  .github/env/dev.env|awk\
+        \ -F\"=\" '{ print $2 }'` \necho AZURE_SUBSCRIPTION=$AZURE_SUBSCRIPTION >>\
+        \ $GITHUB_ENV\nTEMPLATE_NAME=`grep \"^TEMPLATE_NAME=\"  .github/env/dev.env|awk\
+        \ -F\"=\" '{ print $2 }'` \necho TEMPLATE_NAME=$TEMPLATE_NAME >> $GITHUB_ENV\n\
+        echo ${{matrix.azureenv}}\necho $DEPLOY_ENV\n"
     - name: Login to Azure
       uses: azure/login@v1
       with:
