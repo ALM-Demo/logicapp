@@ -1,22 +1,19 @@
 jobs:
   create-logicapp-infra:
     env:
-      AZURE_LOGICAPP_PACKAGE_PATH: .
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-    environment: sandbox
+    environment: dev
     name: Create logicapp infra
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
-      run: 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true
-
-        echo make executable set_env.sh
+      run: 'echo make executable set_env.sh
 
         chmod 755 .github/scripts/set_env.sh
 
-        .github/scripts/set_env.sh
+        .github/scripts/set_env.sh ${{matrix.azureenv}}
 
         echo ${{matrix.azureenv}}
 
@@ -37,7 +34,7 @@ jobs:
     strategy:
       matrix:
         azureenv:
-        - sandbox
+        - dev
 name: Create azure infra for logic apps
 'on':
   push:
