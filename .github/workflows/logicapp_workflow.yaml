@@ -32,7 +32,7 @@ jobs:
       with:
         deploymentName: ${{ env.DPLOYMENT_NAME }}
         parameters: ${{ env.PARAMETERFILE_NAME }}
-        resourceGroupName: ${{ env.RG_NAME }}
+        resourceGroupName: ${{ env.RESOUECE_GROUP_NAME }}
         template: ${{ env.TEMPLATE_NAME }}
     strategy:
       matrix:
