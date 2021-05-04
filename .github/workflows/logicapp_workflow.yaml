@@ -8,8 +8,6 @@ jobs:
       DPLOYMENT_NAME: TestlogicApp
       LOCATION: eastus2
       PARAMETERFILE_NAME: parameters.json
-      RG_NAME: grep "^RESOUECE_GROUP_NAME="  .github/env/dev.env|awk -F"=" '{ print
-        $2 }'
       TEMPLATE_NAME: template.json
     environment: sandbox
     name: Create logicapp infra
@@ -17,20 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
-      run: 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true
-
-        RG_NAME=`grep "^RESOUECE_GROUP_NAME="  .github/env/dev.env|awk -F"=" ''{ print
-        $2 }''`
-
-        echo $RG_NAME
-
-        echo ${{matrix.RG_NAME}}
-
-        echo ${{matrix.azureenv}}
-
-        echo $DEPLOY_ENV
-
-        '
+      run: "ACTIONS_ALLOW_UNSECURE_COMMANDS=true\nRG_NAME=`grep \"^RESOUECE_GROUP_NAME=\"\
+        \  .github/env/dev.env|awk -F\"=\" '{ print $2 }'` \necho $RG_NAME >>$GITHUB_ENV\n\
+        echo ${{matrix.azureenv}}\necho $DEPLOY_ENV\n"
     - name: Login to Azure
       uses: azure/login@v1
       with:
