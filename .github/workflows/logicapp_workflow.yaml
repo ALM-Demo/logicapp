@@ -3,7 +3,7 @@ jobs:
     env:
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-    environment: dev
+    environment: sandbox
     name: Create logicapp infra
     runs-on: ubuntu-latest
     steps:
@@ -13,7 +13,7 @@ jobs:
 
         chmod 755 .github/scripts/set_env.sh
 
-        .github/scripts/set_env.sh ${{matrix.azureenv}}
+        .github/scripts/set_env.sh dev
 
         echo ${{matrix.azureenv}}
 
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         azureenv:
-        - dev
+        - sandbox
 name: Create azure infra for logic apps
 'on':
   push:
