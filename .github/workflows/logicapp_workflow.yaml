@@ -17,6 +17,8 @@ jobs:
 
         echo ${{matrix.azureenv}}
 
+        cat $GITHUB_ENV
+
         echo $DEPLOY_ENV
 
         '
