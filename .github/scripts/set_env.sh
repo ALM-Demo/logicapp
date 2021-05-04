@@ -1,4 +1,6 @@
+#source .github/env/dev.env
+env=$1
 while read var value
 do
-    echo $var $value >> $GITHUB_ENV
-done < .github/env/dev.env
+    echo $var $value >> $env.env
+done < .github/env/$env.env
