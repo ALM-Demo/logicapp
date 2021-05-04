@@ -1,9 +1,7 @@
 jobs:
   create-logicapp-infra:
     env:
-      DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-    environment: dev
     name: Create logicapp infra
     runs-on: ubuntu-latest
     steps:
@@ -13,7 +11,7 @@ jobs:
 
         chmod 755 .github/scripts/set_env.sh
 
-        .github/scripts/set_env.sh ${{matrix.azureenv}}
+        .github/scripts/set_env.sh ${{env.envtype}}
 
         echo ${{matrix.azureenv}}
 
@@ -33,10 +31,6 @@ jobs:
         parameters: ${{ env.PARAMETERFILE_NAME }}
         resourceGroupName: ${{ env.RESOUECE_GROUP_NAME }}
         template: ${{ env.TEMPLATE_NAME }}
-    strategy:
-      matrix:
-        azureenv:
-        - dev
 name: Create azure infra for logic apps
 'on':
   push:
