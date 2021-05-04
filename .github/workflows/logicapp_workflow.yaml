@@ -16,8 +16,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
       run: "ACTIONS_ALLOW_UNSECURE_COMMANDS=true\nRG_NAME=`grep \"^RESOUECE_GROUP_NAME=\"\
-        \  .github/env/dev.env|awk -F\"=\" '{ print $2 }'` \necho $RG_NAME >>$GITHUB_ENV\n\
-        echo ${{matrix.azureenv}}\necho $DEPLOY_ENV\n"
+        \  .github/env/dev.env|awk -F\"=\" '{ print $2 }'` \necho RG_NAME: $RG_NAME\
+        \ >>$GITHUB_ENV\necho ${{matrix.azureenv}}\necho $DEPLOY_ENV\n"
     - name: Login to Azure
       uses: azure/login@v1
       with:
