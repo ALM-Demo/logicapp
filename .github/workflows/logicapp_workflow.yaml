@@ -12,6 +12,8 @@ jobs:
     - name: Set the env variables according to env
       run: 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true
 
+        echo make executable set_env.sh
+
         chmod 755 .github/scripts/set_env.sh
 
         .github/scripts/set_env.sh
