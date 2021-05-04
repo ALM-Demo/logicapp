@@ -1,1 +1,53 @@
-environment: qa
+jobs:
+  create-logicapp-infra:
+    env:
+      AZURE_LOGICAPP_PACKAGE_PATH: .
+      DEPLOY_ENV: ${{ matrix.azureenv }}
+      DOTNET_VERSION: 3.1.301
+    environment: sandbox
+    name: Create logicapp infra
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set the env variables according to env
+      run: 'echo ${{matrix.azureenv}}
+
+        echo $DEPLOY_ENV
+
+        '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: actions/checkout@v2
+    - name: Set the env variables according to env
+      run: 'echo "Set env permission"
+
+        chmod 755 .github/scripts/set_env.sh
+
+        .github/scripts/set_env.sh ${{matrix.azureenv}}
+
+        echo ${{matrix.azureenv}}
+
+        cat $GITHUB_ENV
+
+        echo $DEPLOY_ENV
+
+        '
+    - name: Create Logic App
+      uses: azure/arm-deploy@v1
+      with:
+        deploymentName: ${{ env.DPLOYMENT_NAME }}
+        parameters: ${{ env.PARAMETERFILE_NAME }}
+        resourceGroupName: ${{ env.RESOUECE_GROUP_NAME }}
+        template: ${{ env.TEMPLATE_NAME }}
+    strategy:
+      matrix:
+        azureenv:
+        - sandbox
+name: Create azure infra for logic apps
+'on':
+  push:
+    paths:
+    - .github/workflows/logicapp_workflow.yaml
+    - '*.json'
