@@ -4,21 +4,9 @@ jobs:
       AZURE_LOGICAPP_PACKAGE_PATH: .
       DEPLOY_ENV: ${{ matrix.azureenv }}
       DOTNET_VERSION: 3.1.301
-    environment: sandbox
     name: Create logicapp infra
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set the env variables according to env
-      run: 'echo ${{matrix.azureenv}}
-
-        echo $DEPLOY_ENV
-
-        '
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: actions/checkout@v2
     - name: Set the env variables according to env
       run: 'echo "Set env permission"
@@ -34,6 +22,10 @@ jobs:
         echo $DEPLOY_ENV
 
         '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Create Logic App
       uses: azure/arm-deploy@v1
       with:
@@ -44,7 +36,7 @@ jobs:
     strategy:
       matrix:
         azureenv:
-        - sandbox
+        - dev
 name: Create azure infra for logic apps
 'on':
   push:
