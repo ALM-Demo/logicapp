@@ -34,6 +34,7 @@ jobs:
         resourceGroupName: ${{ env.RESOUECE_GROUP_NAME }}
         template: ${{ env.TEMPLATE_NAME }}
     strategy:
+      environment: dev
       matrix:
         azureenv:
         - dev
