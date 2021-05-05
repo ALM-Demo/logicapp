@@ -1,3 +1,6 @@
+name: Create azure infra for logic apps
+'on':
+    push:
 jobs:
   printInputs:
     runs-on: ubuntu-latest
